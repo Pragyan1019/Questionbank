@@ -71,7 +71,7 @@ const data =await res.json();
         </div>
         }
         <div className="container" ref={hidepassform}>
-    <div className='bg-slate-50 w-1/3 mx-auto text-center my-28 p-10'>
+    <div className='bg-slate-50 md:w-1/3 mx-auto text-center my-28 p-10 w-full'>
     <div>
        <label htmlFor="password" className='text-2xl mx-auto'>Enter the password</label>
 <input type="text" id='password'   ref={ref} className='h-10 border-2 border-black w-80 mx-auto p-1'  placeholder='Enter the password'/>

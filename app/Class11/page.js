@@ -6,7 +6,7 @@ import Link from "next/link";
 const Page = () => {
   return (
    <>
-   <div className="container bg-[#dce1ea] md:w-1/2 w-full mx-auto rounded p-5 mt-3 ">
+   <div className="container bg-[#dce1ea] md:w-1/2 w-full mx-auto rounded p-5 md:mt-3 ">
 <div className="flex mx-auto w-full  justify-center my-4">
   <Image alt="An vector image" width={40} height={50} src={"/books.gif"}></Image>
   <span className="text-3xl"> Class 11  Subjects </span>

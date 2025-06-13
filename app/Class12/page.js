@@ -3,7 +3,7 @@ import Image from "next/image";
 import React from 'react'
 import Link from "next/link";
 
-const page = () => {
+const Page = () => {
   return (
    <>
    <div className="container bg-[#dce1ea] md:w-1/2 w-full mx-auto rounded p-5 mt-3 ">
@@ -33,4 +33,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

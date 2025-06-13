@@ -25,7 +25,7 @@ setmessage(true)
     <div className='left-side md:w-1/2 w-full p-3 '>
 <div className={`title ${fraunces.className} text-center text-3xl m-3`}>Get in Touch</div>
 
-<div className='text-center'>"We'd love to hear from you! Please fill out the form below,"</div>
+<div className='text-center'>&quot;We'd love to hear from you! Please fill out the form below,&quot;</div>
 {message ? <div className='font-semibold text-lg mt-20 text-center'>Thank you! Your message has been sent.<br/> We'll get back to you within 24 hours</div>:
 (<div ref={ref} className="form my-4 md:w-1/2 mx-auto w-[80%]">
     <form action="">

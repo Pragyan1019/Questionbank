@@ -3,7 +3,7 @@ import React from 'react'
 import { useState,useRef } from 'react'
 
 
-const page = () => {
+const Page = () => {
     const [form, setform] = useState({questions:"",subjects:"",year:"",grade:"",tags:""})
     const [isauthorized, setisuuthorized] = useState()
     const [pass, setpass] = useState({password:""})
@@ -84,4 +84,4 @@ const data =await res.json();
   )
 }
 
-export default page
+export default Page

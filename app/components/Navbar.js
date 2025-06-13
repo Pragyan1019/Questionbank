@@ -3,7 +3,7 @@ import React from 'react'
 import Link from 'next/link'
 import { Inter_Tight } from 'next/font/google'
 import { useSession,signIn,signOut } from 'next-auth/react'
-import { useState } from 'react'
+
 
 const fraunces = Inter_Tight({
   subsets: ['latin'],

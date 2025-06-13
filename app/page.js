@@ -1,103 +1,41 @@
+"use client"
 import Image from "next/image";
+import { Inter } from 'next/font/google'
+import Link from "next/link";
+
+const fraunces = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+})
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+  <>
+  <main className=" bg-gray-300 min-h-[90vh] relative  flex justify-center">
+    <div className="title md:absolute md:bottom-80 md:left-37 md:mt-0 flex flex-col gap-1 left-[50%] mt-20">
+      <span className="md:text-3xl text-xl text-center z-10">🚀 Your Journey to </span>
+      <span className="md:text-5xl text-2xl text-center z-10"> Excellence Starts Here </span>
+<span className="text-center md:text-xl z-10">Select your class and begin mastering every concept.</span>
     </div>
+<div className="container bg-gray-300  flex absolute md:bottom-40 justify-around bottom-40 ">
+<div className="buttons flex gap-20   md:items-end md:flex-row flex-col ">
+<Link href="/Class11">  <div className="class11 h-25 w-40 justify-center items-center flex bg-[#884788] shadow-xl shadow-[#5c315c] text-2xl rounded cursor-pointer hover:scale-110 transition-transform ">
+  <Image alt="An vector image" width={30} height={50} src={"/books.gif"}></Image>
+  <span className={fraunces.className}> Class 11</span>
+  </div></Link>
+ <Link href="/Class12"> <div className="class12  h-25 w-40 justify-center items-center flex bg-[#884788] shadow-xl shadow-[#5c315c] text-2xl rounded cursor-pointer hover:scale-110 transition-transform ">
+    <Image alt="An vector image" width={30} height={50} src={"/books.gif"}></Image>
+ <span className={fraunces.className}> Class 12</span>
+  </div></Link>
+</div>
+<div className="image md:block hidden">
+ <Image alt="An vector image" width={500} height={500} src={"/vector.png"}></Image>
+  
+</div>
+</div>
+</main>
+
+
+  </>
   );
 }

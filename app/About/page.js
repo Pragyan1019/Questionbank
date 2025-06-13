@@ -28,7 +28,7 @@ const About = () => {
 <p className='font-[italic] text-lg mb-6'>&quot;Studying for the NEB exams can feel like searching for a needle in a haystack. We&apos;ve all been there—knowing that success often lies in mastering the types of questions that are asked time and again, but struggling to find them in one organized place.</p>
 <p className='font-[italic] text-lg mb-6'>As a student, I felt this frustration firsthand. In an era of incredible technology, why was it still so hard to find a modern platform dedicated to practicing the most important questions?</p>
 <p className='font-bold text-lg mb-6'>Questions.com.np was born from that simple question.</p>
-<p className='font-[italic] text-lg mb-6'>Our mission is to close that gap. We meticulously curate and organize the high-yield, frequently repeated questions from past NEB exams so you can stop searching and start mastering. We're here to empower you to study smarter, build unshakable confidence, and walk into your exams fully prepared to excel.&quot;</p>
+<p className='font-[italic] text-lg mb-6'>Our mission is to close that gap. We meticulously curate and organize the high-yield, frequently repeated questions from past NEB exams so you can stop searching and start mastering. We&apos;re here to empower you to study smarter, build unshakable confidence, and walk into your exams fully prepared to excel.&quot;</p>
 </div>
     <div className="image md:w-[40%] md:mb-0 mb-5 md:order-2">
  <Image alt="An vector image" width={500} height={100} src={"/studentsai.png"}></Image>

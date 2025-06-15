@@ -5,39 +5,55 @@
 // const data=await res.json();
 // return NextResponse.json(data); 
 // }
-import clientPromise from "@/app/lib/mongodb"; // Adjust path if needed
+// app/api/savequestions/route.js
+
+import clientPromise from "@/app/lib/mongodb";
 import { NextResponse } from "next/server";
 
-// Function to GET all questions
+// Function to GET questions with pagination
 export async function GET(req) {
     try {
         const client = await clientPromise;
         const db = client.db("questionbank");
 
-        const questions = await db.collection("questions").find({}).toArray();
+        const { searchParams } = new URL(req.url);
+        const page = parseInt(searchParams.get('page') || '1', 10);
+        const limit = parseInt(searchParams.get('limit') || '20', 10);
+        const skip = (page - 1) * limit;
 
-        return NextResponse.json(questions);
+        // Fetch a "page" of questions and the total count in parallel for efficiency
+        const [questions, totalQuestions] = await Promise.all([
+            db.collection("questions").find({}).sort({ _id: -1 }).skip(skip).limit(limit).toArray(),
+            db.collection("questions").countDocuments({})
+        ]);
+
+        return NextResponse.json({
+            questions,
+            totalPages: Math.ceil(totalQuestions / limit),
+            currentPage: page,
+        });
 
     } catch (error) {
-        console.error("API Error:", error);
+        console.error("GET /api/savequestions Error:", error);
         return NextResponse.json({ message: "Failed to fetch questions" }, { status: 500 });
     }
 }
 
-// Function to POST new questions
+// Function to POST new questions with defensive coding and batching
 export async function POST(req) {
     try {
         const client = await clientPromise;
         const db = client.db("questionbank");
 
-        const { questions, subjects, year, grade, tags } = await req.json();
+        // Use default empty strings to prevent crashes if fields are missing
+        const { questions = '', subjects, year, grade, tags = '' } = await req.json();
 
-        // This is your data processing logic from the Express app
-        const tagsarray = tags.split(",").map(i => i.trim()).filter(i => i.length > 0);
-        const questionsarray = questions.split("?").map(i => i.trim()).filter(i => i.length > 0)
+        // Defensive parsing
+        const tagsarray = (tags || '').split(",").map(i => i.trim()).filter(i => i.length > 0);
+        const questionsarray = (questions || '').split("?").map(i => i.trim()).filter(i => i.length > 0)
             .map(i => ({
-                question: i + '?', // Renamed for clarity
-                subject: subjects, // Renamed for clarity
+                question: i + '?',
+                subject: subjects,
                 year,
                 grade,
                 tags: tagsarray
@@ -47,12 +63,20 @@ export async function POST(req) {
             return NextResponse.json({ message: "No valid questions provided" }, { status: 400 });
         }
 
-        const insertResult = await db.collection("questions").insertMany(questionsarray);
+        // --- BATCHING LOGIC TO PREVENT TIMEOUTS ---
+        const BATCH_SIZE = 100;
+        let successfulInserts = 0;
+
+        for (let i = 0; i < questionsarray.length; i += BATCH_SIZE) {
+            const batch = questionsarray.slice(i, i + BATCH_SIZE);
+            const insertResult = await db.collection("questions").insertMany(batch);
+            successfulInserts += insertResult.insertedCount;
+        }
         
-        return NextResponse.json({ success: true, result: insertResult }, { status: 201 });
+        return NextResponse.json({ success: true, insertedCount: successfulInserts }, { status: 201 });
 
     } catch (error) {
-        console.error("API Error:", error);
-        return NextResponse.json({ message: "Failed to add questions" }, { status: 500 });
+        console.error("POST /api/savequestions Error:", error);
+        return NextResponse.json({ message: "Failed to add questions", error: error.message }, { status: 500 });
     }
 }

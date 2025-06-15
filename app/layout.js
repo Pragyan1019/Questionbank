@@ -2,7 +2,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import { Fraunces } from 'next/font/google'
-import SessionWrapper from "./components/SessionWrapper";
 
 const fraunces = Fraunces({
   subsets: ['latin'],
@@ -26,14 +25,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <SessionWrapper>
+     
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased ${fraunces.className}`}
       >
         <Navbar/>
         {children}
       </body>
-      </SessionWrapper>
+      
     </html>
   );
 }

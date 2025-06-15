@@ -6,16 +6,22 @@ const Page = () => {
   const [data, setdata] = useState(null);
   useEffect(() => {
     async function fetchdata() {
-      let res = await fetch("http://localhost:8080/Questions");
+       
+      let res = await fetch('/api2/savequestions');
+        if (!res.ok) {
+          throw new Error(`Failed to fetch data: ${res.status} ${res.statusText}`);
+        }
       const a = await res.json();
-      setdata(a);
+      console.log("Actual data received from API:", a); 
+      setdata(a || []);
       
     }
     fetchdata();
   }, []);
-  if (data === null) {
+   if (!data) {
     return <div className="text-center my-5">Loading...</div>;
   }
+ 
   const filtereddata = data.filter(
     i => i.subjects === "English" && i.grade =="11"
   );

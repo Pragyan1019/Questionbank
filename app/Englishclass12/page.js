@@ -6,9 +6,14 @@ const Page = () => {
   const [data, setdata] = useState(null);
   useEffect(() => {
     async function fetchdata() {
-      let res = await fetch("http://localhost:8080/Questions");
+      try{
+      let res = await fetch('/api2/savequestions');
       const a = await res.json();
-      setdata(a);
+      setdata(a);}
+      catch(err){
+        console.error("An error occurred while fetching questions:", err);
+       
+      }
       
     }
     fetchdata();

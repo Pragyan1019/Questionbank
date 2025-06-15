@@ -6,7 +6,7 @@ const Page = () => {
   const [data, setdata] = useState(null);
   useEffect(() => {
     async function fetchdata() {
-      let res = await fetch("http://localhost:8080/Questions");
+      let res = await fetch('/api2/savequestions');
       const a = await res.json();
       setdata(a);
     

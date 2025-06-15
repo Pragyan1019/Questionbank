@@ -9,13 +9,12 @@ const Page = () => {
     const [pass, setpass] = useState({password:""})
     const ref=useRef(null);
     const hidepassform=useRef(null);
-
 const handlechange=(e)=>{
   setform({...form,[e.target.name]:e.target.value})
 }
 
     const Savequestions=async()=> {
-      await fetch('http://localhost:8080/Questions',{
+      await fetch('/api2/savequestions',{
      method: 'POST',
   headers: {
     'Content-Type': 'application/json'
@@ -26,7 +25,7 @@ setform({questions:"",subjects:"",year:"",grade:"",tags:""})
     }
    
     const checkpassword=async()=>{
-let res=await fetch('http://localhost:8080/Admin',{
+let res=await fetch('api1/checkpassword',{
      method: 'POST',
   headers: {
     'Content-Type': 'application/json'

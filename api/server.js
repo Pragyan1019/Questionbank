@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 const dbName = 'questionbank';
 async function main(){
     await client.connect();
-   
+
 
 app.post('/Admin',async (req, res) => {
     const {password}=req.body;

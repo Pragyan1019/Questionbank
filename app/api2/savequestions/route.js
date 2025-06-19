@@ -34,7 +34,7 @@ export async function GET(req) {
         });
 
     } catch (error) {
-        console.error("GET /api/savequestions Error:", error);
+        console.error("GET /api2/savequestions Error:", error);
         return NextResponse.json({ message: "Failed to fetch questions" }, { status: 500 });
     }
 }
@@ -46,7 +46,7 @@ export async function POST(req) {
         const db = client.db("questionbank");
 
         // Use default empty strings to prevent crashes if fields are missing
-        const { questions = '', subjects, year, grade, tags = '' } = await req.json();
+        const { questions = '', subjects, grade, tags = '' } = await req.json();
 
         // Defensive parsing
         const tagsarray = (tags || '').split(",").map(i => i.trim()).filter(i => i.length > 0);
@@ -54,7 +54,7 @@ export async function POST(req) {
             .map(i => ({
                 question: i + '?',
                 subject: subjects,
-                year,
+               
                 grade,
                 tags: tagsarray
             }));

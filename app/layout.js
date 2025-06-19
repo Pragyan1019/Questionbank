@@ -1,9 +1,13 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
-import { Fraunces } from 'next/font/google'
+import { Fraunces,Inter } from 'next/font/google'
 
 const fraunces = Fraunces({
+  subsets: ['latin'],
+  display: 'swap',
+})
+const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
 })
@@ -27,7 +31,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
      
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased ${fraunces.className}`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased ${inter.className}`}
       >
         <Navbar/>
         {children}

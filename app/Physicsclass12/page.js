@@ -1,64 +1,85 @@
 "use client";
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Page = () => {
-  const [data, setdata] = useState(null);
-   const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+ 
+  const [questions, setQuestions] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     async function fetchdata() {
-      try{
-      let res = await fetch('/api2/savequestions');
-        if (!res.ok) {
-    console.error("Failed to fetch questions from the API.");
-    // Maybe show an error message to the user and stop.
-    return; 
-  }
+      let allquestions=[];
+      let currentpage=1;
+      let totalPages=1;
+      try {
+      
+        do{
+        let res = await fetch(`/api2/savequestions?page=${currentpage}&limit=100`);
 
-      const a = await res.json();
-          if (!Array.isArray(a)) {
-            throw new Error("Data received from API is not an array.");
+        if (!res.ok) {
+          throw new Error(`API call failed with status: ${res.status}`);
         }
-      setdata(a);
-    }
-     catch (err) {
-        // Catch any error from the try block (network error, bad response, etc.)
+
+        const responseData = await res.json();
+
+        if (!responseData || !Array.isArray(responseData.questions)) {
+          throw new Error("Data from API is not in the expected format.");
+        }
+        allquestions.push(...responseData.questions)
+        totalPages=responseData.totalPages;
+        currentpage++;
+      }while(currentpage<=totalPages)
+      
+        setQuestions(allquestions);
+
+      } catch (err) {
         console.error("Fetch data error:", err);
-        setError(err.message); // Store the error message to display to the user
+        setError(err.message);
       } finally {
-        // This runs regardless of success or failure
-        setLoading(false); // Stop showing the loading indicator
+        setLoading(false);
       }
     }
     fetchdata();
   }, []);
-   // Render UI based on the state
+
   if (loading) {
     return <div className="text-center my-5">Loading...</div>;
   }
-    if (error) {
+
+  if (error) {
     return <div className="text-center my-5 text-red-500">Error: {error}</div>;
   }
-  if (data === null) {
-    return <div className="text-center my-5">Loading...</div>;
+  
+  
+  if (!questions || questions.length === 0) {
+    return <div className="text-center my-5">No questions found.</div>;
   }
-  const filtereddata = data.filter(
-    (i) => i.subjects === "Physics" && i.grade =="12"
+
+ 
+  const filtereddata = questions.filter(
+    (i) => i.subject === "Physics" && i.grade == "12"
   );
 
-  if (filtereddata.length===0) {
-    return <div>No questions of physics found</div>;
+  if (filtereddata.length === 0) {
+    return <div className="text-center p-5 text-2xl">No Physics questions for grade 12 were found.</div>;
   }
 
   return (
     <>
+      <div className="max-w-4xl md:mx-auto md:px-4 sm:px-6 lg:px-8 py-8  px-2">
+         <div className="flow-root">
+          <ul role="list" className="-my-4 divide-y divide-gray-200">
       {filtereddata.map((i) => (
-        <div key={i._id||i.id} className="container flex p-1 m-1 w-[98vw]">
-          <div className="year w-[8vw] text-xl md:block hidden">{i.year}</div>
-          <div className="questions md:w-[87vw] w-[98vw]">{i.questions}</div>
-        </div>
+        <li key={i._id} className="md:py-5 py-6 hover:bg-purple-50 transition-colors duration-200 cursor-pointer">
+          
+          {/* 4. Corrected property name from 'questions' to 'question' */}
+          <div className="text-lg text-gray-800 leading-relaxed">{i.question}</div>
+        </li>
       ))}
+      </ul>
+      </div>
+      </div>
     </>
   );
 };

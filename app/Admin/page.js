@@ -45,13 +45,12 @@ const data =await res.json();
   
     <>
     {isauthorized==true && <div>
-    <form action="" className='mx-20 flex flex-col gap-[10px]'>
+    <form action="" className='md:mx-20 flex flex-col gap-[10px] w-97vw'>
   <div className="flex flex-col"> <label htmlFor="questions">Questions:</label>
     <textarea value={form.questions} onChange={handlechange}  name='questions' id="questions" className='w-1/2 h-[40vh] overflow-y-auto p-1' placeholder='Enter the questions'></textarea></div> 
     <div className="flex flex-col"> <label htmlFor="subjects">subjects:</label>
     <input type="text" id='subjects'  value={form.subjects} onChange={handlechange} name='subjects' className='w-[40%] p-2' placeholder='Enter the subjects name'/></div>
-    <div className="flex flex-col"> <label htmlFor="year">Year:</label>
-    <input type="text" id='year'  value={form.year} onChange={handlechange} name='year' className='w-[40%] p-2' placeholder='Enter the year of the question'/></div>
+    
     <div className="flex flex-col"> <label htmlFor="grade">Grade:</label>
     <input type="text" id='grade'  value={form.grade} onChange={handlechange} name='grade' className='w-[40%] p-2' placeholder='Enter the grade'/></div>
     <div className="flex flex-col"> <label htmlFor="tags">Tags:</label>
